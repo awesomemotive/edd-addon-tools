@@ -1,0 +1,8 @@
+{
+  "name": "easydigitaldownloads/edd-addon-tools",
+  "description": "Classes and code used by Easy Digital Downloads and its extensions.",
+  "type": "library",
+  "license": "GPL-2.0-or-later",
+  "minimum-stability": "stable",
+  "require": {}
+}
