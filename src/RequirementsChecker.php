@@ -1,6 +1,6 @@
 <?php
 /**
- * Requirements
+ * Requirements Checker
  *
  * Checks system requirements. As this class is used to check system requirements, we intentionally
  * use PHP that's compatible with lower versions.
@@ -11,7 +11,11 @@
  * @since     1.0
  */
 
-class EDD_Requirements {
+namespace EDD\ExtensionUtils;
+
+use WP_Error;
+
+class RequirementsChecker {
 
 	/**
 	 * @var array Requirements

@@ -4,5 +4,10 @@
   "type": "library",
   "license": "GPL-2.0-or-later",
   "minimum-stability": "stable",
-  "require": {}
+  "require": {},
+  "autoload": {
+    "psr-4": {
+      "EDD\\ExtensionUtils\\": "src/"
+    }
+  }
 }
