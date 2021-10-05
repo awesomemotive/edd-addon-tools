@@ -20,7 +20,7 @@ class ExtensionLoader {
 	private $pluginFile;
 
 	/**
-	 * @var \Closure Function/method to execute if all requirements are met.
+	 * @var \Closure|\Callable|mixed Function/method to execute if all requirements are met.
 	 */
 	private $callback;
 
@@ -32,8 +32,9 @@ class ExtensionLoader {
 	/**
 	 * Constructor.
 	 *
-	 * @param \Closure $callback     Callback to execute if requirements are met.
-	 * @param array    $requirements Requirements to pass to the checker class.
+	 * @param string $pluginFile       Path to the plugin file ( __FILE__ from main plugin file.)
+	 * @param \Closure|\Callable|mixed Callback to execute if requirements are met.
+	 * @param array $requirements      Requirements to pass to the checker class.
 	 *
 	 * @throws \InvalidArgumentException
 	 */
@@ -94,9 +95,9 @@ class ExtensionLoader {
 	/**
 	 * Loads the plugin if requirements are met.
 	 *
-	 * @param string   $pluginFile   Path to the plugin file ( __FILE__ from main plugin file.)
-	 * @param \Closure $callback     Callback function to execute if requirements are met.
-	 * @param array    $requirements Requirements to launch the plugin.
+	 * @param string $pluginFile       Path to the plugin file ( __FILE__ from main plugin file.)
+	 * @param \Closure|\Callable|mixed Callback to execute if requirements are met.
+	 * @param array  $requirements     Requirements to launch the plugin.
 	 */
 	public static function loadOrQuit( $pluginFile, $callback, $requirements ) {
 		$loader = new self( $pluginFile, $callback, $requirements );
