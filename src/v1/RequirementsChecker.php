@@ -11,7 +11,7 @@
  * @since     1.0
  */
 
-namespace EDD\ExtensionUtils;
+namespace EDD\ExtensionUtils\v1;
 
 use WP_Error;
 
