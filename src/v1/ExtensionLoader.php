@@ -83,35 +83,35 @@ class ExtensionLoader {
 		$className = sanitize_html_class( $this->pluginBasename );
 		?>
 		<style id="<?php echo esc_attr( $className ); ?>">
-            .plugins tr[data-plugin="<?php echo esc_html( $this->pluginBasename ); ?>"] th,
-            .plugins tr[data-plugin="<?php echo esc_html( $this->pluginBasename ); ?>"] td,
-            .plugins .<?php echo esc_html( $className ); ?>-row th,
-            .plugins .<?php echo esc_html( $className ); ?>-row td {
-                background: #fff5f5;
-            }
+			.plugins tr[data-plugin="<?php echo esc_html( $this->pluginBasename ); ?>"] th,
+			.plugins tr[data-plugin="<?php echo esc_html( $this->pluginBasename ); ?>"] td,
+			.plugins .<?php echo esc_html( $className ); ?>-row th,
+			.plugins .<?php echo esc_html( $className ); ?>-row td {
+				background: #fff5f5;
+			}
 
-            .plugins tr[data-plugin="<?php echo esc_html( $this->pluginBasename ); ?>"] th {
-                box-shadow: none;
-            }
+			.plugins tr[data-plugin="<?php echo esc_html( $this->pluginBasename ); ?>"] th {
+				box-shadow: none;
+			}
 
-            .plugins .<?php echo esc_html( $className ); ?>-row th span {
-                margin-left: 6px;
-                color: #dc3232;
-            }
+			.plugins .<?php echo esc_html( $className ); ?>-row th span {
+				margin-left: 6px;
+				color: #dc3232;
+			}
 
-            .plugins tr[data-plugin="<?php echo esc_html( $this->pluginBasename ); ?>"] th,
-            .plugins .<?php echo esc_html( $className ); ?>-row th.check-column {
-                border-left: 4px solid #dc3232 !important;
-            }
+			.plugins tr[data-plugin="<?php echo esc_html( $this->pluginBasename ); ?>"] th,
+			.plugins .<?php echo esc_html( $className ); ?>-row th.check-column {
+				border-left: 4px solid #dc3232 !important;
+			}
 
-            .plugins .<?php echo esc_html( $className ); ?>-row .column-description p {
-                margin: 0;
-                padding: 0;
-            }
+			.plugins .<?php echo esc_html( $className ); ?>-row .column-description p {
+				margin: 0;
+				padding: 0;
+			}
 
-            .plugins .<?php echo esc_html( $className ); ?>-row .column-description p:not(:last-of-type) {
-                margin-bottom: 8px;
-            }
+			.plugins .<?php echo esc_html( $className ); ?>-row .column-description p:not(:last-of-type) {
+				margin-bottom: 8px;
+			}
 		</style>
 		<?php
 	}
