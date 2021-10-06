@@ -90,7 +90,8 @@ class ExtensionLoader {
 				background: #fff5f5;
 			}
 
-			.plugins tr[data-plugin="<?php echo esc_attr( $this->pluginBasename ); ?>"] th {
+			.plugins tr[data-plugin="<?php echo esc_attr( $this->pluginBasename ); ?>"] th,
+			.plugins tr[data-plugin="<?php echo esc_attr( $this->pluginBasename ); ?>"] td {
 				box-shadow: none;
 			}
 
