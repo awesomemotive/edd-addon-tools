@@ -130,7 +130,12 @@ class RequirementsChecker {
 					$exists  = defined( 'EDD_VERSION' );
 					break;
 				default:
-					$version = false;
+					$version = isset( $properties['current'] ) ? $properties['current'] : false;
+					$exists  = isset( $properties['exists'] ) ? $properties['exists'] : false;
+
+					if ( is_callable( $exists ) ) {
+						$exists = call_user_func( $exists );
+					}
 					break;
 			}
 
@@ -138,11 +143,33 @@ class RequirementsChecker {
 				$this->requirements[ $requirement_id ] = array_merge( $this->requirements[ $requirement_id ], array(
 					'current' => $version,
 					'checked' => true,
-					'met'     => version_compare( $version, $properties['minimum'], '>=' ),
-					'exists'  => isset( $exists ) ? $exists : $this->requirements[ $requirement_id ]['exists']
+					'met'     => $this->minimumVersionMet( $version, $properties['minimum'] ),
+					'exists'  => (bool) $exists,
 				) );
 			}
 		}
+	}
+
+	/**
+	 * Determines if the minimum version has been met.
+	 *
+	 * @since 1.0.1
+	 *
+	 * @param string|\Closure $currentVersion
+	 * @param string          $minimumVersion
+	 *
+	 * @return bool
+	 */
+	private function minimumVersionMet( $currentVersion, $minimumVersion ) {
+		if ( is_callable( $currentVersion ) ) {
+			$currentVersion = call_user_func( $currentVersion );
+		}
+
+		if ( ! is_string( $currentVersion ) ) {
+			return false;
+		}
+
+		return version_compare( $currentVersion, $minimumVersion, '>=' );
 	}
 
 	/**

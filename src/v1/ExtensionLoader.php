@@ -14,6 +14,8 @@ namespace EDD\ExtensionUtils\v1;
 
 class ExtensionLoader {
 
+	const VERSION = '1.0.1';
+
 	/**
 	 * @var string Path to the plugin file.
 	 */
@@ -37,9 +39,9 @@ class ExtensionLoader {
 	/**
 	 * Constructor.
 	 *
-	 * @param string $pluginFile   Path to the plugin file ( __FILE__ from main plugin file.)
-	 * @param \Closure|\Callable|mixed Callback to execute if requirements are met.
-	 * @param array  $requirements Requirements to pass to the checker class.
+	 * @param string                   $pluginFile   Path to the plugin file ( __FILE__ from main plugin file.)
+	 * @param \Closure|\Callable|mixed $callback     Callback to execute if requirements are met.
+	 * @param array                    $requirements Requirements to pass to the checker class.
 	 *
 	 * @throws \InvalidArgumentException
 	 */
