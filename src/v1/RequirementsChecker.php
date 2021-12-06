@@ -130,8 +130,8 @@ class RequirementsChecker {
 					$exists  = defined( 'EDD_VERSION' );
 					break;
 				default:
-					$version = isset( $properties['current'] ) ? $properties['current'] : false;
-					$exists  = isset( $properties['exists'] ) ? $properties['exists'] : false;
+					$version = $this->parseRequirementProperty( $properties, 'current' );
+					$exists  = $this->parseRequirementProperty( $properties, 'exists' );
 
 					if ( is_callable( $exists ) ) {
 						$exists = call_user_func( $exists );
@@ -143,11 +143,34 @@ class RequirementsChecker {
 				$this->requirements[ $requirement_id ] = array_merge( $this->requirements[ $requirement_id ], array(
 					'current' => $version,
 					'checked' => true,
-					'met'     => $this->minimumVersionMet( $version, $properties['minimum'] ),
+					'met'     => $this->minimumVersionMet( $version, $this->parseRequirementProperty( $properties, 'minimum' ) ),
 					'exists'  => (bool) $exists,
 				) );
 			}
 		}
+	}
+
+	/**
+	 * Parses a property from the array of requirements.
+	 * If the value is a callable, then `call_user_func()` will be called
+	 * to retrieve the actual value. If the value isn't set, then `false`
+	 * is returned.
+	 *
+	 * @since 1.0.1
+	 *
+	 * @param array $properties Array of all properties for the requirement.
+	 * @param string $key       Key in the requirements array to parse out.
+	 *
+	 * @return false|mixed
+	 */
+	private function parseRequirementProperty( $properties, $key ) {
+		if ( ! array_key_exists( $key, $properties ) ) {
+			return false;
+		}
+
+		return is_callable( $properties[ $key ] )
+			? call_user_func( $properties[ $key ] )
+			: $properties[ $key ];
 	}
 
 	/**
@@ -161,10 +184,6 @@ class RequirementsChecker {
 	 * @return bool
 	 */
 	private function minimumVersionMet( $currentVersion, $minimumVersion ) {
-		if ( is_callable( $currentVersion ) ) {
-			$currentVersion = call_user_func( $currentVersion );
-		}
-
 		if ( ! is_string( $currentVersion ) ) {
 			return false;
 		}
@@ -202,20 +221,20 @@ class RequirementsChecker {
 	 */
 	private function unmetRequirementDescription( $requirement ) {
 		// Requirement exists, but is out of date.
-		if ( ! empty( $requirement['exists'] ) ) {
+		if ( $this->parseRequirementProperty( $requirement, 'exists' ) ) {
 			return sprintf(
 				$this->unmetRequirementsDescriptionText(),
-				'<strong>' . esc_html( $requirement['name'] ) . '</strong>',
-				'<strong>' . esc_html( $requirement['minimum'] ) . '</strong>',
-				'<strong>' . esc_html( $requirement['current'] ) . '</strong>'
+				'<strong>' . esc_html( $this->parseRequirementProperty( $requirement, 'name' ) ) . '</strong>',
+				'<strong>' . esc_html( $this->parseRequirementProperty( $requirement, 'minimum' ) ) . '</strong>',
+				'<strong>' . esc_html( $this->parseRequirementProperty( $requirement, 'current' ) ) . '</strong>'
 			);
 		}
 
 		// Requirement could not be found.
 		return sprintf(
 			$this->unmetRequirementsMissingText(),
-			esc_html( $requirement['name'] ),
-			'<strong>' . esc_html( $requirement['minimum'] ) . '</strong>'
+			esc_html( $this->parseRequirementProperty( $requirement, 'name' ) ),
+			'<strong>' . esc_html( $this->parseRequirementProperty( $requirement, 'minimum' ) ) . '</strong>'
 		);
 	}
 
