@@ -38,3 +38,32 @@ require_once dirname( __FILE__ ) . '/vendor/autoload.php';
 
 If the requirements are all met, the callback function is triggered on the `plugins_loaded` hook.
 If the requirements are not met, then the callback is not triggered, and instead a warning is printed in the plugin's row in the admin table.
+
+### Custom requirements
+
+You can also set up custom/arbitrary requirements. Here's an example for where an extension could arbitrarily require a version of any plugin:
+
+```php 
+\EDD\ExtensionUtils\v1\ExtensionLoader::loadOrQuit( __FILE__, 'edd_mailpoet_load', array(
+	'php'                    => '5.5',
+	'easy-digital-downloads' => '2.9',
+	'mailpoet'               => array(
+		'minimum' => '2.0',
+		'name'    => 'MailPoet',
+		'exists'  => static function () {
+			return defined( 'MAILPOET_VERSION' ) || class_exists( 'WYSIJA_object' );
+		},
+		'current' => static function () {
+			if ( defined( 'MAILPOET_VERSION' ) ) {
+				return MAILPOET_VERSION;
+			} elseif ( class_exists( 'WYSIJA_object' ) ) {
+				return WYSIJA_object::$version;
+			} else {
+				return false;
+			}
+		},
+	),
+) );
+```
+
+Note the use of closures. This ensures the constants are only evaluated on `plugins_loaded` instead of immediately. This is to ensure the dependencies are loaded before we check them.
