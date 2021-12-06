@@ -221,7 +221,7 @@ class RequirementsChecker {
 	 */
 	private function unmetRequirementDescription( $requirement ) {
 		// Requirement exists, but is out of date.
-		if ( $this->parseRequirementProperty( $requirement, 'exists' ) ) {
+		if ( $this->parseRequirementProperty( $requirement, 'exists' ) && $this->parseRequirementProperty( $requirement, 'current' ) ) {
 			return sprintf(
 				$this->unmetRequirementsDescriptionText(),
 				'<strong>' . esc_html( $this->parseRequirementProperty( $requirement, 'name' ) ) . '</strong>',
