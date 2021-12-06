@@ -41,7 +41,7 @@ If the requirements are not met, then the callback is not triggered, and instead
 
 ### Custom requirements
 
-You can also set up custom/arbitrary requirements. Here's an example for where an extension could arbitrarily require a version of any plugin:
+You can also set up custom/arbitrary requirements. Here's an example for where an extension could arbitrarily require a version of any plugin (in this case, MailPoet):
 
 ```php 
 \EDD\ExtensionUtils\v1\ExtensionLoader::loadOrQuit( __FILE__, 'edd_mailpoet_load', array(
