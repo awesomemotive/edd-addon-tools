@@ -29,6 +29,14 @@ class Request {
 	private $endpoint;
 
 	/**
+	 * The license key.
+	 *
+	 * @since 1.1.0
+	 * @var string
+	 */
+	private $license_key;
+
+	/**
 	 * The response from the API request.
 	 *
 	 * @since 1.1.0
