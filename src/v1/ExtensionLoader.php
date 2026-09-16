@@ -92,18 +92,17 @@ class ExtensionLoader {
 				background: #fff5f5;
 			}
 
-			.plugins tr[data-plugin="<?php echo esc_attr( $this->pluginBasename ); ?>"] th,
-			.plugins tr[data-plugin="<?php echo esc_attr( $this->pluginBasename ); ?>"] td {
+			.plugins tr[data-plugin="<?php echo esc_attr( $this->pluginBasename ); ?>"] .check-column {
 				box-shadow: none;
 			}
 
-			.plugins .<?php echo esc_attr( $className ); ?>-row th span {
+			.plugins .<?php echo esc_attr( $className ); ?>-row .check-column span {
 				margin-left: 6px;
 				color: #dc3232;
 			}
 
-			.plugins tr[data-plugin="<?php echo esc_attr( $this->pluginBasename ); ?>"] th,
-			.plugins .<?php echo esc_attr( $className ); ?>-row th.check-column {
+			.plugins tr[data-plugin="<?php echo esc_attr( $this->pluginBasename ); ?>"] .check-column,
+			.plugins .<?php echo esc_attr( $className ); ?>-row .check-column {
 				border-left: 4px solid #dc3232 !important;
 			}
 
@@ -122,15 +121,18 @@ class ExtensionLoader {
 	/**
 	 * Displays errors about unmet requirements in this plugin's row.
 	 *
+	 * The checkbox cell is a `td` to match the plugins list table, which moved the row
+	 * header from the checkbox column to the primary column in WordPress 7.1.
+	 *
 	 * @since 1.0
 	 */
 	public function addErrorsToPluginRow() {
 		$colspan = function_exists( 'wp_is_auto_update_enabled_for_type' ) && wp_is_auto_update_enabled_for_type( 'plugin' ) ? 2 : 1;
 		?>
 		<tr class="active <?php echo esc_attr( sanitize_html_class( $this->pluginBasename ) ); ?>-row">
-			<th class="check-column">
+			<td class="check-column">
 				<span class="dashicons dashicons-warning"></span>
-			</th>
+			</td>
 			<td class="column-primary">
 				<?php esc_html_e( 'This plugin is not fully active.', 'easy-digital-downloads' ) ?>
 			</td>
