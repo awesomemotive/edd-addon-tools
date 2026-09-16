@@ -14,7 +14,7 @@ namespace EDD\ExtensionUtils\v1;
 
 class ExtensionLoader {
 
-	const VERSION = '1.0.1';
+	const VERSION = '1.1.1';
 
 	/**
 	 * @var string Path to the plugin file.
