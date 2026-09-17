@@ -74,7 +74,7 @@ class Request {
 	/**
 	 * Get the response from the API request.
 	 *
-	 * @since <next-version>
+	 * @since 1.1.0
 	 * @return Response
 	 */
 	public function get_response() {
